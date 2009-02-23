@@ -119,6 +119,24 @@ public class Settings {
 		return (value != null) ? value.toString() : defaultValue;
 	}
 
+      	/** Get Hash property */
+	public Hashtable getHashProperty(String name, Hashtable defaultValue) {
+		Object value = getProperty(name);
+                Hashtable g = new Hashtable();
+                try{
+                g  = (value.equals(null)) ? (Hashtable)value : defaultValue;
+                Enumeration e  = g.keys();
+                while(e.hasMoreElements()){
+                    System.out.println("-------"+e.nextElement());
+                }
+                }catch(Exception e){
+                    System.out.println("Class cast pblm "+e);
+                }
+                
+                
+		return g;
+	}
+
 	/** Load properties from record store */
 	private synchronized void load() throws IOException, RecordStoreException {
 		RecordStore rs = null;
@@ -211,6 +229,11 @@ public class Settings {
 		setStringProperty(name, Integer.toString(value));
 	}
 
+        /** Set Hashtable property */
+        public void setHashProperty(String name,Hashtable hash){
+                properties.put(name, hash);
+                valuesChanged = true;
+        }
 	/** Set a string property */
 	public synchronized boolean setStringProperty(String name, String value) {
 		if (name == null && value == null)

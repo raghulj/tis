@@ -33,7 +33,7 @@ public class FileCache implements TileCache, Runnable {
     private Thread cacheThread = null;
     private static final int THREADDELAY = 200;//
 
-    private static final String cacheName = "BTISCache";
+    private static final String cacheName = "TISCache";
     private String fullPath = "";
     private String exportFolder = "";
 

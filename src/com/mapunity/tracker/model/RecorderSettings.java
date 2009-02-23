@@ -30,6 +30,7 @@ import com.mapunity.map.MapProviderManager;
 import com.mapunity.tracker.view.Logger;
 import com.mapunity.util.StringUtil;
 import com.mapunity.util.Version;
+import java.util.Hashtable;
 
 /**
  * RecorderSettings contains all settings for the Trail Explorer application.
@@ -60,6 +61,7 @@ public class RecorderSettings {
     private static final String USEJSR179="jsr179";
     private static final String USEFILECACHE="fileCache";
     private static final String CITY = "city";
+    private static final String CITYMATRIX = "citymatrix";
 
     /** Importing settings keys */
     private static final String IMPORT_FILE = "import-file";
@@ -570,5 +572,20 @@ public class RecorderSettings {
       */
      public String getCity(){
          return settings.getStringProperty(CITY, "");
+     }
+     
+     /**
+      * set the city matrix
+      */
+     public void setCityMatrix(String cityMatrix){
+         settings.setStringProperty(CITYMATRIX, cityMatrix);
+         saveSettings();
+     }
+     
+     /**
+      * Get the entire matrix data
+      */
+     public String getCityMatrix(){
+         return settings.getStringProperty(CITYMATRIX, null);
      }
 }

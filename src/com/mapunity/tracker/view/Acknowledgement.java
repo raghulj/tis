@@ -26,7 +26,6 @@ package com.mapunity.tracker.view;
 
 import java.util.Vector;
 
-import com.mapunity.tracker.*;
 import com.mapunity.tracker.controller.Controller;
 import com.mapunity.util.ImageUtil;
 import com.mapunity.util.StringUtil;
@@ -64,8 +63,8 @@ public final class Acknowledgement extends Canvas {
     private static final Font DEFAULT_SIMPLE_FONT = Font.getDefaultFont();
 
     private static final String[] aboutText = { "  Our sincere thanks to Tommi Laukkanen,Gareth Jones  for helping us develop this application","",
-            "Licensed under the GPL", "For source code visit:",
-            "www.btis.in" };
+            "Licensed under the GPL", "For more information visit:",
+            "www.mapunity.in" };
 
     private static final String[] trailScreenHelpText = {
             "use following keys ", "2 for UP",

@@ -46,6 +46,7 @@ import com.mapunity.gpsdevice.GpsDeviceFactory;
 import com.mapunity.gpsdevice.GpsUtilities;
 import com.mapunity.gpsdevice.Jsr179Device;
 import com.mapunity.gpsdevice.MockGpsDevice;
+import com.mapunity.net.Downloader;
 import com.mapunity.tracker.model.AlertHandler;
 import com.mapunity.tracker.model.AudioShortcutAction;
 import com.mapunity.tracker.model.Backlight;
@@ -105,6 +106,8 @@ public class Controller {
     public String InfoDisplay;
         
     public LocationPointer [] routesData;
+    
+    public int initScreen;
     /**
      * Current status value
      */
@@ -221,6 +224,8 @@ public class Controller {
      */
     private Place navpnt;
     
+    
+    public String cityListURL = "http://127.0.0.1/web/citydata.txt";
     /**
      * The features of the application
      */
@@ -282,17 +287,13 @@ public class Controller {
         mapCity = settings.getCity();
         cityHash = new Hashtable();
         
-        //                                                                       loc , mapid, dir,  bus ,cam , hotpst , fine, buspos
-        cityHash.put("Bangalore", new CityData("Bangalore","btis.in",            1,    1,     1,    1,    1,   1,       1,       1   ,"12.97579","77.61142"));
-        cityHash.put("Hyderabad", new CityData("Hyderabad","htis.in",            1,    1,     1,    0,    0,   1,       0,       0   ,"17.4404", "78.3893"));
-        cityHash.put("Chennai",   new CityData("Chennai","chennaitraffic.in",    1,    1,     0,    1,    1,   1,       0,       0   ,"13.07086","80.2304006"));
-        cityHash.put("Delhi",     new CityData("Delhi","dtis.in",                1,    1,     1,    0,    0,   1,       0,       0   ,"28.642399","77.1842999"));
-        cityHash.put("Pune",      new CityData("Pune","ptis.in",                 1,    1,     1,    0,    0,   1,       0,       0   ,"18.51558","73.85614"));
-        cityHash.put("Indore",    new CityData("Indore","indoretransport.in",    1,    1,     1,    1,    0,   0,       0,       0   ,"22.72341","75.88134"));
-        cityHash.put("Mysore",    new CityData("Mysore","mysoretransport.in",    1,    1,     1,    1,    0,   0,       1,       0   ,"12.97579","77.61142"));
-      
+        System.out.println("Default city is "+mapCity);
         if(!mapCity.equals("")){
-            controller.selectedCity = (CityData) controller.cityHash.get(mapCity);
+            
+            loadCityMatrix();
+            
+        }else{
+             controller.ShowCitySelectionList();      
         }
         
         // Initialize Logger, as it must have an instance of RecorderSettings on
@@ -1549,9 +1550,10 @@ public class Controller {
              pointresultCanvas = new PointResultCanvas(locatePoint);
         }
         else{
-            System.out.println("not null ");
+            //System.out.println("not null ");
             pointresultCanvas.glbLatitude = aDoubleLat;
             pointresultCanvas.glbLongitude = aDoubleLon;
+            System.out.println("LAt and lon is "+pointresultCanvas.glbLatitude +"  "+pointresultCanvas.glbLongitude);
             pointresultCanvas.gotoLonLat((float)aDoubleLon, (float)aDoubleLat, pointresultCanvas.zoom, true) ;
           
         }
@@ -1600,7 +1602,7 @@ public class Controller {
       public PointResultCanvas TrafficSpots(Vector trafficSpots) {
        
         if (pointresultCanvas == null) {
-              locatePoint.setLocatePoint("", Double.parseDouble(Controller.getController().initLat),Double.parseDouble(Controller.getController().initLon));
+              //locatePoint.setLocatePoint("", Double.parseDouble(Controller.getController().initLat),Double.parseDouble(Controller.getController().initLon));
               
             try {
                // initialPosition = this.recorder.getPositionFromRMS();
@@ -1792,6 +1794,42 @@ public class Controller {
          display.setCurrent(citySelectionList());
     }
     
+  public void loadCityMatrix(){
+                   try{
+                  Downloader dwn = new Downloader(controller);
+                   String cityData = settings.getCityMatrix();
+                   System.out.println(" THe local data is "+cityData);
+                   String [] TotalData = dwn.parsePipes(cityData);
+                   controller.cityHash.clear();
+                   for (int data=0;data<TotalData.length;data++){
+                       String[] chunk = dwn.parseTilda(TotalData[data]);
+                       
+                       controller.cityHash.put(chunk[0].toString(), new CityData(chunk[0].toString(),chunk[1].toString(),Integer.parseInt(chunk[2]),Integer.parseInt(chunk[3]),Integer.parseInt(chunk[4]),Integer.parseInt(chunk[5]),Integer.parseInt(chunk[6]),Integer.parseInt(chunk[7]),Integer.parseInt(chunk[8]),Integer.parseInt(chunk[9]),chunk[10].toString(),chunk[11].toString()));                       
+                       for(int i=0;i<chunk.length;i++){
+                           System.out.print(chunk[i]);
+                       }
+                   }
+                 
+             controller.selectedCity = (CityData) controller.cityHash.get(mapCity);     
+
+             }catch(Exception e){
+            System.out.print("Error in loading city matrix"+e);
+            //                                                                       loc , mapid, dir,  bus ,cam , hotpst , fine, buspos
+           // cityHash.put("Bangalore", new CityData("Bangalore","btis.in",            1,    1,     1,    1,    1,   1,       1,       1   ,"12.97579","77.61142"));
+            //cityHash.put("Hyderabad", new CityData("Hyderabad","htis.in",            1,    1,     1,    0,    0,   1,       0,       0   ,"17.4404", "78.3893"));
+    //        cityHash.put("Chennai",   new CityData("Chennai","chennaitraffic.in",    1,    1,     0,    1,    1,   1,       0,       0   ,"13.07086","80.2304006"));
+    //        cityHash.put("Delhi",     new CityData("Delhi","dtis.in",                1,    1,     1,    0,    0,   1,       0,       0   ,"28.642399","77.1842999"));
+    //        cityHash.put("Pune",      new CityData("Pune","ptis.in",                 1,    1,     1,    0,    0,   1,       0,       0   ,"18.51558","73.85614"));
+    //        cityHash.put("Indore",    new CityData("Indore","indoretransport.in",    1,    1,     1,    1,    0,   0,       0,       0   ,"22.72341","75.88134"));
+    //        cityHash.put("Mysore",    new CityData("Mysore","mysoretransport.in",    1,    1,     1,    1,    0,   0,       1,       0   ,"12.97579","77.61142"));
+    //      
+            //controller.selectedCity = (CityData) controller.cityHash.get("Bangalore");
+            settings.setCityMatrix("Bangalore~~btis.in~~1~~1~~1~~1~~1~~1~~1~~1~~12.97579~~77.61142||Hyderabad~~htis.in~~1~~1~~1~~0~~0~~1~~0~~0~~17.4404~~78.3893");
+            loadCityMatrix();
+             }
+  }
+  
+
   public class DownloadTimer extends TimerTask
   {
     public final void run()

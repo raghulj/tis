@@ -55,38 +55,37 @@ public class MainMenu extends List implements CommandListener{
         BaseForm.addCommand(ok1);
         BaseForm.addCommand(backtoMenu);
         BaseForm.setCommandListener(this);
-        if (controller.selectedCity == null){
-              controller.ShowCitySelectionList();
-        }
+        
+//        if (controller.selectedCity == null){
+//                    controller.ShowCitySelectionList();      
+//        }
        
         
         
         
        
-        System.out.println("starting to postion........");
-         Controller.getController().getPointingCanvas("", "12.969802", "77.60879");
+       // Controller.getController().getPointingCanvas("", "12.969802", "77.60879");
       // Controller.getController().getPointingCanvas("", Controller.getController().initLat, Controller.getController().initLon);
         
         RecorderSettings settings = controller.getSettings();
-         String ex = settings.getExportFolder();
+        String ex = settings.getExportFolder();
                 if(ex == null)
                 {
-                     new Thread()
+                   new Thread()
                    {
-                       public void run(){
-                    frm = new Form("Information");
-                    frm.append( "Please select a folder for application to proceed");
-                    frm.addCommand(ok);
-                    frm.setCommandListener(mm);
-                    controller.setCurrentScreen(frm);
-                    
+                    public void run(){
+                        frm = new Form("Information");
+                        frm.append( "Please select a folder for application to proceed");
+                        frm.addCommand(ok);
+                        frm.setCommandListener(mm);
+                        controller.setCurrentScreen(frm);
                     }
-                    }.start(); 
+                 }.start(); 
                    
-                    new Thread(){
+                new Thread(){
                  public void run(){
-                     
-                 updateDownloadCounter();
+
+                // updateDownloadCounter();
                     }
                  
                     }.start();
@@ -105,6 +104,7 @@ public class MainMenu extends List implements CommandListener{
     }
     
     private void Initialize(){
+                            
         initMenuList();
     }
      public void commandAction(Command command, Displayable disp) {
@@ -271,5 +271,6 @@ public class MainMenu extends List implements CommandListener{
         addCommand(selectCity);
         setCommandListener (this);
         Controller.getController().getPointingCanvas("", controller.selectedCity.LATITUDE, controller.selectedCity.LONGITUDE);
+        controller.pointresultCanvas.m_listMyPlaces.removeAllElements();
     }
 }

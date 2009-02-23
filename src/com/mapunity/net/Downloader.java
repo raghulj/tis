@@ -8,6 +8,7 @@ import java.io.*;
 import javax.microedition.io.*;
 
 import com.mapunity.tracker.controller.Controller;
+import com.mapunity.util.StringUtil;
 import javax.microedition.lcdui.AlertType;
 
 /**
@@ -23,6 +24,7 @@ public class Downloader {
 
     }
 
+    // Download the data from the given url and return as a string
     public String requestForData(String URL) {
        
         String resultData = null;
@@ -50,12 +52,25 @@ public class Downloader {
             }
         } catch (Exception e) {
             System.out.print(e);
-            controller.ShowPointingCanvas();
+            //controller.ShowPointingCanvas();
             controller.showAlert("Network Error", 3, AlertType.ERROR);
         }
 
         return resultData;
-
-
+    }
+    
+    // Parses the pipe symbol from the given raw string
+    public String[] parsePipes(String rawData){
+        
+        String [] ArrayOfData;
+         ArrayOfData =StringUtil.split(rawData.trim(),"||");
+         return ArrayOfData;
+    }
+    
+    //Parses the tilda symbol from the given raw string
+    public String[] parseTilda(String rawData){
+        String[] chunk;
+        chunk =StringUtil.split(rawData,"~~");
+        return chunk;
     }
 }
