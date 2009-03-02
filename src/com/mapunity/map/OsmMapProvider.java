@@ -16,7 +16,7 @@ public class OsmMapProvider extends AbstractMapProvider {
         UrlFormat = "http://tilesX.mapunity.in/tiles/mobile/tiles/tile_X_X_X.png";
        // UrlFormat = "http://tilesX.mapunity.org/tile_X_X_X.png";
         //128 tilest
-    //    UrlFormat = "http://127.0.0.X/web/tiles/tile_X_X_X.png";
+   //     UrlFormat = "http://127.0.0.X/web/level_13/tile_X_X_X.png";
       // UrlFormat = "http://tilesX.mapunity.in/tiles/spinfotiles/tile_X_X_X.png";
        //UrlFormat = "http://tilesX.mapunity.in/tiles/oltiles/tile_X_X_X.png";
         cacheDir=""; //Not used any more, now we have the FileCache

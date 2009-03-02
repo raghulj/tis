@@ -201,7 +201,7 @@ public class DirectionSuggestTo extends List implements CommandListener {
                  new Thread(){      public void run() { 
       
           String [] chunk;
-         DirectionArray =fetchDirectionsData(controller.FromField+"&dst="+controller.ToField+"&city=Bangalore");
+         DirectionArray =fetchDirectionsData(controller.FromField+"&dst="+controller.ToField+"&city="+controller.selectedCity.Name);
         // DirectionArray =GetDataFromSite("KORAMANGALA&dst=INDIRANAGAR&city=Bangalore");
            try{
             

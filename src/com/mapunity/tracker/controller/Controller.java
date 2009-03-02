@@ -1700,10 +1700,15 @@ public class Controller {
                           //  System.out.println("added to route" + lat +"  "+lon);
         }
          System.out.println("Km is as shown below "+DirectionsArray[DirectionsArray.length-1]);
-         double Autofare =  Double.parseDouble(DirectionsArray[DirectionsArray.length-1]) * 7;
+         if (controller.selectedCity.autoFare == 0){
+            this.InfoDisplay = " The distance for your trip is "+DirectionsArray[DirectionsArray.length-1] +" km."; 
+         }else{
+                      double Autofare =  Double.parseDouble(DirectionsArray[DirectionsArray.length-1]) * controller.selectedCity.autoFare;
          System.out.println("AutoFare --  "+Math.ceil(Autofare));
         this.InfoDisplay = " The distance for your trip is "+DirectionsArray[DirectionsArray.length-1] +" km.  The approximate auto fare is Rs. "+Math.ceil(Autofare) +".";
-         
+     
+         }
+    
          controller.pointresultCanvas.infoCounter =2;
          controller.route = null;
          controller.route=temp;
@@ -1804,7 +1809,7 @@ public class Controller {
                    for (int data=0;data<TotalData.length;data++){
                        String[] chunk = dwn.parseTilda(TotalData[data]);
                        
-                       controller.cityHash.put(chunk[0].toString(), new CityData(chunk[0].toString(),chunk[1].toString(),Integer.parseInt(chunk[2]),Integer.parseInt(chunk[3]),Integer.parseInt(chunk[4]),Integer.parseInt(chunk[5]),Integer.parseInt(chunk[6]),Integer.parseInt(chunk[7]),Integer.parseInt(chunk[8]),Integer.parseInt(chunk[9]),chunk[10].toString(),chunk[11].toString()));                       
+                       controller.cityHash.put(chunk[0].toString(), new CityData(chunk[0].toString(),chunk[1].toString(),Integer.parseInt(chunk[2]),Integer.parseInt(chunk[3]),Integer.parseInt(chunk[4]),Integer.parseInt(chunk[5]),Integer.parseInt(chunk[6]),Integer.parseInt(chunk[7]),Integer.parseInt(chunk[8]),Integer.parseInt(chunk[9]),chunk[10].toString(),chunk[11].toString(),chunk[12].toString()));                       
                        for(int i=0;i<chunk.length;i++){
                            System.out.print(chunk[i]);
                        }
@@ -1814,17 +1819,17 @@ public class Controller {
 
              }catch(Exception e){
             System.out.print("Error in loading city matrix"+e);
-            //                                                                       loc , mapid, dir,  bus ,cam , hotpst , fine, buspos
-           // cityHash.put("Bangalore", new CityData("Bangalore","btis.in",            1,    1,     1,    1,    1,   1,       1,       1   ,"12.97579","77.61142"));
-            //cityHash.put("Hyderabad", new CityData("Hyderabad","htis.in",            1,    1,     1,    0,    0,   1,       0,       0   ,"17.4404", "78.3893"));
-    //        cityHash.put("Chennai",   new CityData("Chennai","chennaitraffic.in",    1,    1,     0,    1,    1,   1,       0,       0   ,"13.07086","80.2304006"));
+            //                                                                       loc , mapid, dir,  bus ,cam , hotpst , fine, buspos     lat        lon       autofare                 
+           // cityHash.put("Bangalore", new CityData("Bangalore","btis.in",            1,    1,     1,    1,    1,   1,       1,       1   ,"12.97579","77.61142","7"));
+            //cityHash.put("Hyderabad", new CityData("Hyderabad","htis.in",            1,    1,     1,    0,    0,   1,       0,       0   ,"17.4404", "78.3893",0));
+    //        cityHash.put("Chennai",   new CityData("Chennai","chennaitraffic.in",    1,    1,     0,    1,    1,   1,       0,       0   ,"13.07086","80.2304006",0));
     //        cityHash.put("Delhi",     new CityData("Delhi","dtis.in",                1,    1,     1,    0,    0,   1,       0,       0   ,"28.642399","77.1842999"));
     //        cityHash.put("Pune",      new CityData("Pune","ptis.in",                 1,    1,     1,    0,    0,   1,       0,       0   ,"18.51558","73.85614"));
     //        cityHash.put("Indore",    new CityData("Indore","indoretransport.in",    1,    1,     1,    1,    0,   0,       0,       0   ,"22.72341","75.88134"));
     //        cityHash.put("Mysore",    new CityData("Mysore","mysoretransport.in",    1,    1,     1,    1,    0,   0,       1,       0   ,"12.97579","77.61142"));
     //      
             //controller.selectedCity = (CityData) controller.cityHash.get("Bangalore");
-            settings.setCityMatrix("Bangalore~~btis.in~~1~~1~~1~~1~~1~~1~~1~~1~~12.97579~~77.61142||Hyderabad~~htis.in~~1~~1~~1~~0~~0~~1~~0~~0~~17.4404~~78.3893");
+            settings.setCityMatrix("Bangalore~~btis.in~~1~~1~~1~~1~~1~~1~~1~~1~~12.97579~~77.61142~~7||Hyderabad~~htis.in~~1~~1~~1~~0~~0~~1~~0~~0~~17.41424~~78.48541~~0");
             loadCityMatrix();
              }
   }

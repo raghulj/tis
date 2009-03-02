@@ -23,9 +23,10 @@ public class CityData {
     public int BUS_POSITION ;
     public String LATITUDE;
     public String LONGITUDE;
+    public float autoFare;
     
     
-    public CityData(String name,String url,int loc,int mpid,int dir,int bus,int cam,int htpt,int traf,int buspt,String lat,String lng){
+    public CityData(String name,String url,int loc,int mpid,int dir,int bus,int cam,int htpt,int traf,int buspt,String lat,String lng,String auto){
         Name = name;
         URL = url;
         LOCATION = loc;
@@ -38,6 +39,7 @@ public class CityData {
         BUS_POSITION = buspt;
         LATITUDE = lat;
         LONGITUDE = lng;
+        autoFare = Float.parseFloat(auto);
      }
 
 }
