@@ -212,7 +212,7 @@ public class MainMenu extends List implements CommandListener{
                version = getVersionData();
               }catch(Exception e){}
               System.out.println(version);
-              if(!Ver.equals(version) && version != "0"){
+              if(!Ver.equals(version) && !version.equals("0")){
                  System.out.println(Ver);
                  System.out.println("Differenent Version");
                  new Thread(){

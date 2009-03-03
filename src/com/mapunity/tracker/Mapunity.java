@@ -97,8 +97,8 @@ public class Mapunity extends MIDlet {
               //  disp.setCurrent(mm);
                 
 	        controller = new Controller(this, disp);
-               controller.initLat = getAppProperty("user-Latitude");
-                controller.initLon = getAppProperty("user-Longitude"); 
+             //  controller.initLat = getAppProperty("user-Latitude");
+              //  controller.initLon = getAppProperty("user-Longitude"); 
 	       controller.showSplash();
     	}catch(Exception any){
     		any.printStackTrace();

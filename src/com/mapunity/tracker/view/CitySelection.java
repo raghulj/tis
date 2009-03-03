@@ -65,6 +65,7 @@ public class CitySelection extends List implements CommandListener {
              settings.setCity(this.getString(getSelectedIndex()));
              controller.selectedCity = (CityData) controller.cityHash.get(this.getString(getSelectedIndex()));
              settings.setCity(controller.selectedCity.Name);
+             
              controller.showAlert("selected city saved", 0, AlertType.INFO);
              controller.MainMenu();
         }

@@ -1810,13 +1810,15 @@ public class Controller {
                        String[] chunk = dwn.parseTilda(TotalData[data]);
                        
                        controller.cityHash.put(chunk[0].toString(), new CityData(chunk[0].toString(),chunk[1].toString(),Integer.parseInt(chunk[2]),Integer.parseInt(chunk[3]),Integer.parseInt(chunk[4]),Integer.parseInt(chunk[5]),Integer.parseInt(chunk[6]),Integer.parseInt(chunk[7]),Integer.parseInt(chunk[8]),Integer.parseInt(chunk[9]),chunk[10].toString(),chunk[11].toString(),chunk[12].toString()));                       
-                       for(int i=0;i<chunk.length;i++){
-                           System.out.print(chunk[i]);
-                       }
+
+//                       for(int i=0;i<chunk.length;i++){
+//                           System.out.print(chunk[i]);
+//                       }
                    }
                  
-             controller.selectedCity = (CityData) controller.cityHash.get(mapCity);     
-
+                controller.selectedCity = (CityData) controller.cityHash.get(mapCity);     
+                controller.initLat = controller.selectedCity.LATITUDE;
+                controller.initLon = controller.selectedCity.LONGITUDE;
              }catch(Exception e){
             System.out.print("Error in loading city matrix"+e);
             //                                                                       loc , mapid, dir,  bus ,cam , hotpst , fine, buspos     lat        lon       autofare                 
