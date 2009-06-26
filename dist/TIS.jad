@@ -1,0 +1,14 @@
+MIDlet-1: TIS,/images/mapunity.png,com.mapunity.tracker.Mapunity
+MIDlet-Description: Geography of development
+MIDlet-Icon: /images/mapunity.png
+MIDlet-Info-URL: http://www.mapunity.in
+MIDlet-Jar-Size: 215211
+MIDlet-Jar-URL: TIS.jar
+MIDlet-Name: TIS
+MIDlet-Permissions: javax.microedition.io.Connector.file.write, javax.microedition.io.Connector.file.read, javax.microedition.io.Connector.bluetooth.client
+MIDlet-Vendor: Mapunity
+MIDlet-Version: 0.20
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
+user-Latitude: 12.969802
+user-Longitude: 77.60879
